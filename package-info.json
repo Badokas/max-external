@@ -1,10 +1,10 @@
 {
-  "author": "demo",
-  "description": "demo",
+  "author": "max-external",
+  "description": "max-external",
   "homepatcher": "",
   "max_version_max": "none",
-  "max_version_min": "none",
-  "name": "demo",
+  "max_version_min": "7.0.0",
+  "name": "max-external",
   "os": {
     "macintosh": {
       "platform": ["ia32", "x64"],
@@ -16,10 +16,10 @@
     }
   },
   "package_extra": {
-    "reverse_domain": "com.demo",
+    "reverse_domain": "com.max-external",
     "copyright": ""
   },
-  "tags": ["demo"],
+  "tags": ["max-external"],
   "version": "1.0.0",
   "website": ""
 }
