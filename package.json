@@ -1,0 +1,16 @@
+{
+  "name": "max-external",
+  "version": "1.0.0",
+  "main": "scripts/build.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "fs-extra": "^9.0.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "clean": "node scripts/clean.js",
+    "setup": "node scripts/clean.js && node scripts/build.js"
+  },
+  "devDependencies": {}
+}
