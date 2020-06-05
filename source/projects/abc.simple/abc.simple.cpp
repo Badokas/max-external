@@ -4,34 +4,34 @@ using namespace c74::max;
 
 #define OBJECT_NAME "abc.simple" // name of the object
 
-static t_class *demo_class; // required global pointer to this class
+static t_class *abc_class; // required global pointer to this class
 
-typedef struct _demo
+typedef struct _abc
 {
     t_object x_obj;
-} t_demo;
+} t_abc;
 
-void *demo_new(t_symbol *s, short ac, t_atom *av);
-void  demo_free(t_demo *x);
+void *abc_new(t_symbol *s, short ac, t_atom *av);
+void  abc_free(t_abc *x);
 
 int C74_EXPORT main(void)
 {
     t_class *c;
 
-    c = class_new(OBJECT_NAME, (method)demo_new, (method)demo_free, (short)sizeof(t_demo), 0L, A_DEFFLOAT, 0);
+    c = class_new(OBJECT_NAME, (method)abc_new, (method)abc_free, (short)sizeof(t_abc), 0L, A_DEFFLOAT, 0);
 
     class_register(CLASS_BOX, c);
-    demo_class = c;
+    abc_class = c;
 
     return 0;
 }
 
-void *demo_new(t_symbol *s, short ac, t_atom *av)
+void *abc_new(t_symbol *s, short ac, t_atom *av)
 {
-    t_demo *x = (t_demo *)object_alloc((t_class *)demo_class);
-    object_post((t_object *)x, "Hello from demo.hello");
+    t_abc *x = (t_abc *)object_alloc((t_class *)abc_class);
+    object_post((t_object *)x, "Hello from abc.hello");
 
     return (x);
 }
 
-void demo_free(t_demo *x) {}
+void abc_free(t_abc *x) {}
