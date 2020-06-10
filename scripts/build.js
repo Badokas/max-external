@@ -11,7 +11,9 @@ async function checkBuildDir() {
 
     await fs.emptyDir('build');
     await new Promise((resolve) => {
-      let cmakeArgs = isWin ? ['-G', 'Visual Studio 15 2017 Win64', '..'] : ['-G', 'Xcode', '..'];
+      let cmakeArgs = isWin
+        ? ['-G', 'Visual Studio 15 2017 Win64', '..']
+        : ['-G', 'Xcode', '..'];
 
       const cmake = spawn('cmake', cmakeArgs, {
         cwd: path.join(process.cwd(), 'build'),
@@ -62,9 +64,9 @@ async function generateExternals() {
 }
 
 async function showNotification(type) {
-  await new Promise((resolve) => {
-    if (isWin) resolve();
+  if (isWin) return;
 
+  await new Promise((resolve) => {
     let msg;
     if (type === 'success') {
       msg =

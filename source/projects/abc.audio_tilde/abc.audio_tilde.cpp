@@ -1,14 +1,16 @@
 #include "c74_msp.h"
+#include "c74_common.h" // for usage of Attributes
 
 using namespace c74::max;
 
 #define OBJECT_NAME "abc.audio~" // name of the object
 
-static t_class *this_class; // required global pointer to this class
+static t_class *this_class = nullptr; // required global pointer to this class
 
 typedef struct _abc
 {
     t_pxobject x_obj;
+    t_symbol   name; // used in Attribute
 } t_abc;
 
 void *abc_new(t_symbol *s, short ac, t_atom *av);
@@ -25,10 +27,15 @@ void ext_main(void *r)
     class_addmethod(this_class, (method)abc_dsp64, "dsp64", A_CANT, 0);
     class_addmethod(this_class, (method)abc_assist, "assist", A_CANT, 0);
 
+    /* Attributes */
+    CLASS_ATTR_SYM(this_class, "name", 0, t_abc, name);
+    CLASS_ATTR_ACCESSORS(this_class, "name", NULL, (method)abc_getter_attribute);
+    CLASS_ATTR_CATEGORY(this_class, "name", 0, "My Category");
+    CLASS_ATTR_LABEL(this_class, "name", 0, "Name");
+    CLASS_ATTR_BASIC(this_class, "name", 0);
+
     class_dspinit(this_class);
     class_register(CLASS_BOX, this_class);
-
-    return 0;
 }
 
 void abc_in1(t_abc *x, long n) {}
@@ -57,7 +64,10 @@ void abc_assist(t_abc *x, void *b, long m, long a, char *s)
         sprintf(s, "(signal) Audio output");
 }
 
-void abc_free(t_abc *x) {}
+void abc_free(t_abc *x)
+{
+    dsp_free((t_pxobject *)x);
+}
 
 void *abc_new(t_symbol *s, short ac, t_atom *av)
 {
